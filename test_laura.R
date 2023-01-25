@@ -6,9 +6,6 @@ dim(tab_nom_sp)
 tab_nom_sp <- read.table(file = "C:/Users/aelassim/Documents/Trucs_laura/classeur1.csv", sep = ";", header=TRUE, row.names = 1)
 my_data <- read.table(file = "C:/Users/aelassim/Documents/Trucs_laura/classeur1.csv", sep = ";", header=TRUE)
 
-lkhdsg <- "lairalksdgkjgkjlgs"
-
-
 names(my_data)
 head(my_data)
 
@@ -17,10 +14,33 @@ sort(tab_nom_sp[,1], decreasing = T)[1:10][1]
 # How to extract rowname after sort
 sort(my_data[,2], decreasing = T)[1:10]
 
+str(tab_nom_sp[,1])
 
 dataframe[ligne ,  colonnes]
 vecteur[debut : fin]
 
+for (names in colnames(tab_nom_sp)){
+  ### Extraction des valeurs et des noms ### 
+  dixpremier <- order(tab_nom_sp[[names]], decreasing = T)[1:10] # Les indices des 10 plus abondants de la station
+  val_10_premier <- tab_nom_sp[[names]][dixpremier] # Les valeurs des 10 premier
+  nom_10_premier <- rownames(tab_nom_sp)[dixpremier] # Les noms des 10 premiers
+  fusion <- rbind(val_10_premier, nom_10_premier)
+  fusion <- data.frame(as.integer(fusion[1,]), row.names = fusion[2,])
+  
+  ### fusion ###  
+  
+  if(names == "X2" ){
+    tableau_fus <- merge( fusion, fusion2, by = 'row.names', all = T)
+    print("ok")
+  }
+  if(names != "X2" && names != "X1"){
+    tableau_fus <- merge( tableau_fus, fusion2, by.x = 'Row.names', by.y = 'row.names', all = T)
+    
+  }
+  
+}
+tableau_fus[17,]
+tab_nom_sp[56,]
 
 nb_col<-length(colnames(tab_nom_sp))
 ##############################-- Boucle --################################
@@ -31,7 +51,7 @@ for (nombre in 1:nb_col) {
   val_10_premier <- tab_nom_sp[[col]][dixpremier] # Les valeurs des 10 premier
   nom_10_premier <- rownames(tab_nom_sp)[dixpremier] # Les noms des 10 premiers
   fusion <- rbind(val_10_premier, nom_10_premier)
-  fusion <- data.frame(fusion[1,], row.names = fusion[2,])
+  fusion <- data.frame(as.integer(fusion[1,]), row.names = fusion[2,])
   
   ### fusion ###  
 
@@ -39,7 +59,7 @@ for (nombre in 1:nb_col) {
     tableau_fus <- merge( fusion, fusion2, by = 'row.names', all = T)
   }
   if(nombre > 2){
-    tableau_fus <- merge( tableau_fus, fusion2, by = 'row.names', all = T)
+    tableau_fus <- merge( tableau_fus, fusion2, by.x = 'Row.names', by.y = 'row.names', all = T)
     
   }
   fusion2 <- fusion
@@ -47,6 +67,20 @@ for (nombre in 1:nb_col) {
 
 ##############################-- Fin Boucle --################################
 
+dim(tableau_fus)
+
+sum(tableau_fus[,17], na.rm = T)
+sum(sort(tab_nom_sp$X18, decreasing = T)[1:10])
+sort(tableau_fus[,17], decreasing = T)[1:10]
+nom_station <- names(tab_nom_sp)
+names(tableau_fus)[2:17] 
+order(tab_nom_sp$X1, decreasing = T)[1:10]
+tab_nom_sp[56,1:16] == tableau_fus[17,2:17]
+length(tableau_fus[17,1:17])
+as.integer(tableau_fus[,2])
+  
+str(fusion[,1])
+  
 tableau_fusion <- merge(vertical1,vertical1, by = 'row.names', all = T)
 
 
@@ -81,9 +115,10 @@ point3 <- tab_nom_sp$X3[dixpremier3]
 fusion3 <- rbind(point3, rownames(tab_nom_sp)[dixpremier3])
 vertical3 <- data.frame(fusion3[1,], row.names = fusion3[2,])
 
-tableau_ultime <- merge(tableau_fusion, vertical3, by.x = 'row.names', by.y = 'row.names' , all = T)
+tableau_ultime <- merge(tableau_fusion, vertical3, by.x = 'Row.names', by.y = 'row.names' , all = T, suffixes = "X")
 
-
+vertical3
+tableau_fusion$Row.names
 
 tableau_fusion[[Row.names]] # Ca marche pas !!!
 # Soit 
