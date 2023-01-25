@@ -6,6 +6,8 @@ dim(tab_nom_sp)
 tab_nom_sp <- read.table(file = "C:/Users/aelassim/Documents/Trucs_laura/classeur1.csv", sep = ";", header=TRUE, row.names = 1)
 my_data <- read.table(file = "C:/Users/aelassim/Documents/Trucs_laura/classeur1.csv", sep = ";", header=TRUE)
 
+lkhdsg <- "lairalksdgkjgkjlgs"
+
 
 names(my_data)
 head(my_data)
