@@ -22,9 +22,5 @@ dix_premiere_especes <- function(tableau){
     fusion2 <- fusion  
   }
   
-  names(tableau_fus)[2:ncol(tableau_fus)] <- names(tableau)
-  names(tableau_fus)[1] <- "Espèces"
-  
-  
   return(tableau_fus)
 }
