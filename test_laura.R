@@ -1,5 +1,7 @@
-library("dplyr")
-library("tidyr")
+source("C:/Users/aelassim/Documents/Trucs_laura/scripts/dix_premier.R")
+source("scripts/dix_premier.R")
+
+list.files("C:/Users/aelassim/Documents/Trucs_laura/scripts")
 
 dim(tab_nom_sp)
 
@@ -8,6 +10,10 @@ tab_nom_sp <- read.table(file = "C:/Users/aelassim/Documents/Trucs_laura/classeu
 
 #Avec les especes qui sont une colonnes
 my_data <- read.table(file = "C:/Users/aelassim/Documents/Trucs_laura/classeur1.csv", sep = ";", header=TRUE)
+
+
+tableau_10_premier <- dix_premiere_especes(tableau = tab_nom_sp)
+
 
 names(my_data)
 head(my_data)
