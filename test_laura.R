@@ -19,6 +19,9 @@ str(tab_nom_sp[,1])
 dataframe[ligne ,  colonnes]
 vecteur[debut : fin]
 
+
+tab_nom_sp <- read.table(file = "C:/Users/aelassim/Documents/Trucs_laura/classeur1.csv", sep = ";", header=TRUE, row.names = 1)
+
 for (names in colnames(tab_nom_sp)){
   ### Extraction des valeurs et des noms ### 
   dixpremier <- order(tab_nom_sp[[names]], decreasing = T)[1:10] # Les indices des 10 plus abondants de la station
@@ -30,15 +33,33 @@ for (names in colnames(tab_nom_sp)){
   ### fusion ###  
   
   if(names == "X2" ){
-    tableau_fus <- merge( fusion, fusion2, by = 'row.names', all = T)
+    tableau_fus <- merge(fusion2, fusion, by = 'row.names', all = T)
     print("ok")
+    
   }
   if(names != "X2" && names != "X1"){
-    tableau_fus <- merge( tableau_fus, fusion2, by.x = 'Row.names', by.y = 'row.names', all = T)
-    
+    tableau_fus <- merge(tableau_fus, fusion, by.x = 'Row.names', by.y = 'row.names', all = T)
+    break
   }
   fusion2 <- fusion  
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 tableau_fus[17,]
 tab_nom_sp[56,]
 
