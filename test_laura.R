@@ -3,7 +3,10 @@ library("tidyr")
 
 dim(tab_nom_sp)
 
+#Avec les espèces en header
 tab_nom_sp <- read.table(file = "C:/Users/aelassim/Documents/Trucs_laura/classeur1.csv", sep = ";", header=TRUE, row.names = 1)
+
+#Avec les especes qui sont une colonnes
 my_data <- read.table(file = "C:/Users/aelassim/Documents/Trucs_laura/classeur1.csv", sep = ";", header=TRUE)
 
 names(my_data)
@@ -19,8 +22,9 @@ str(tab_nom_sp[,1])
 dataframe[ligne ,  colonnes]
 vecteur[debut : fin]
 
-
 tab_nom_sp <- read.table(file = "C:/Users/aelassim/Documents/Trucs_laura/classeur1.csv", sep = ";", header=TRUE, row.names = 1)
+
+##### Parcourt du tableau par les Noms des colonnes ######
 
 for (names in colnames(tab_nom_sp)){
   ### Extraction des valeurs et des noms ### 
@@ -39,162 +43,52 @@ for (names in colnames(tab_nom_sp)){
   }
   if(names != "X2" && names != "X1"){
     tableau_fus <- merge(tableau_fus, fusion, by.x = 'Row.names', by.y = 'row.names', all = T)
-    break
   }
   fusion2 <- fusion  
 }
 
 
 
+##### Parcourt du tableau par les indices de colonnes #####
 
+for (indice in 1:ncol(tab_nom_sp)) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-tableau_fus[17,]
-tab_nom_sp[56,]
-
-nb_col<-length(colnames(tab_nom_sp))
-##############################-- Boucle --################################
-for (nombre in 1:nb_col) {
   ### Extraction des valeurs et des noms ### 
-  col <- colnames(tab_nom_sp)[nombre]
-  dixpremier <- order(tab_nom_sp[[col]], decreasing = T)[1:10] # Les indices des 10 plus abondants de la station
-  val_10_premier <- tab_nom_sp[[col]][dixpremier] # Les valeurs des 10 premier
+  dixpremier <- order(tab_nom_sp[,indice ], decreasing = T)[1:10] # Les indices des 10 plus abondants de la station
+  val_10_premier <- tab_nom_sp[, indice][dixpremier] # Les valeurs des 10 premier
   nom_10_premier <- rownames(tab_nom_sp)[dixpremier] # Les noms des 10 premiers
   fusion <- rbind(val_10_premier, nom_10_premier)
   fusion <- data.frame(as.integer(fusion[1,]), row.names = fusion[2,])
   
-  ### fusion ###  
+  
+  if(indice == 2 ){
+    tableau_fus <- merge(fusion2, fusion, by = 'row.names', all = T)
 
-  if(nombre == 2 ){
-    tableau_fus <- merge( fusion, fusion2, by = 'row.names', all = T)
   }
-  if(nombre > 2){
-    tableau_fus <- merge( tableau_fus, fusion2, by.x = 'Row.names', by.y = 'row.names', all = T)
-    
+  
+  if(indice != 2 && indice != 1){
+    tableau_fus <- merge(tableau_fus, fusion, by.x = 'Row.names', by.y = 'row.names', all = T)
   }
-  fusion2 <- fusion
+  
+  fusion2 <- fusion  
+}
+  
+
+##### Renommer les colonnes #####
+ncol(tableau_fus)
+names(tableau_fus)[2:ncol(tableau_fus)] <- names(tab_nom_sp)
+names(tableau_fus)[1] <- "Espèces"
+
+
+ncol(tableau_fus)
+nom_fonction (argument = valeur, ...){
+  
 }
 
-##############################-- Fin Boucle --################################
-
-dim(tableau_fus)
-
-sum(tableau_fus[,17], na.rm = T)
-sum(sort(tab_nom_sp$X18, decreasing = T)[1:10])
-sort(tableau_fus[,17], decreasing = T)[1:10]
-nom_station <- names(tab_nom_sp)
-names(tableau_fus)[2:17] 
-order(tab_nom_sp$X1, decreasing = T)[1:10]
-tab_nom_sp[56,1:16] == tableau_fus[17,2:17]
-length(tableau_fus[17,1:17])
-as.integer(tableau_fus[,2])
-  
-str(fusion[,1])
-  
-tableau_fusion <- merge(vertical1,vertical1, by = 'row.names', all = T)
-
-
-rownames(tableau_fusion)
-?rbind()
-    order(tab_nom_sp$X1, decreasing = T)
-lapin <- 32
-     
-    
-group_by(datafr)    
-    colnames(tab_nom_sp[1])
-
-my_data[9,1]
-
-# Les indices des 10 éspèces les plus abondantes pour le ce point de prélevement
-order(tab_nom_sp$X2, decreasing = T)[1:10]
-rownames(tab_nom_sp)[order(tab_nom_sp$X2, decreasing = T)[1:10]]
-rownames(x = dataframe)
-
-dixpremier <- order(tab_nom_sp$X1, decreasing = T)[1:10]
-point1 <- tab_nom_sp$X1[dixpremier]
-fusion1 <- rbind(point1, rownames(tab_nom_sp)[dixpremier])
-
-
-dixpremier2 <- order(tab_nom_sp$X2, decreasing = T)[1:10]
-point2 <- tab_nom_sp$X2[dixpremier2]
-fusion2 <- rbind(point2, rownames(tab_nom_sp)[dixpremier2])
-
-
-dixpremier3 <- order(tab_nom_sp$X3, decreasing = T)[1:10]
-point3 <- tab_nom_sp$X3[dixpremier3]
-fusion3 <- rbind(point3, rownames(tab_nom_sp)[dixpremier3])
-vertical3 <- data.frame(fusion3[1,], row.names = fusion3[2,])
-
-tableau_ultime <- merge(tableau_fusion, vertical3, by.x = 'Row.names', by.y = 'row.names' , all = T, suffixes = "X")
-
-vertical3
-tableau_fusion$Row.names
-
-tableau_fusion[[Row.names]] # Ca marche pas !!!
-# Soit 
-tableau_fusion[[nomcol]] # evalue l'objet
-# Soit 
-tableau_fusion$Row.names # va me chercher la colonne
-nomcol <- 'Row.names'
-
-
-vecteur[indice]
-vect <- 90:100
-vect[2]
-
-rownames(vertical1)
-vertical1 <- data.frame(fusion1[1,], row.names = fusion1[2,])
-vertical2 <- data.frame(fusion2[1,], row.names = fusion2[2,])
-
-colnames(vertical1) == colnames(vertical2)
-
-
-
-?intersect
-  
-?merge
-
-point2 <- 
-
-
-
-
-
-
-
-
-
-
-
-longtable <- tidyr::pivot_longer(data = my_data, cols = "Espèce" )
-tablefin <- slice_min(longtable,n=10, order_by = value)
-
-my_data$X1
-getwd()
-list.files("C:/Users/aelassim/Documents/Trucs_laura")
-read
-
-sort(my_data$X1, decreasing = TRUE)[1:10]
-
-names(my_data)[2]
-
-for(i in 2:17){
-  #sort(my_data[i], decreasing = TRUE)
-  test <- my_data[,i]
-  test <- sort(test, decreasing = TRUE)
+multi(chiffre = 56){
+  chiffre *2 
+  return(chiffre *2 )
 }
 
-sort(my_data[,2])
-point1 <- my_data %>%
-  arrange(x1) 
+
+
