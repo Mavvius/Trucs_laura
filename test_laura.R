@@ -37,7 +37,7 @@ for (names in colnames(tab_nom_sp)){
     tableau_fus <- merge( tableau_fus, fusion2, by.x = 'Row.names', by.y = 'row.names', all = T)
     
   }
-  
+  fusion2 <- fusion  
 }
 tableau_fus[17,]
 tab_nom_sp[56,]
